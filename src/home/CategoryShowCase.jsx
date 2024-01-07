@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Ratting from "../components/Ratting";
+import { Link } from "react-router-dom";
 
 const title = "Our Products";
 
@@ -79,12 +81,16 @@ const ProductData = [
 
 const CategoryShowCase = () => {
   const [items, setItems] = useState(ProductData);
-  const filterItem = () =>{
-
-  }
+  const filterItem = (categItem) => {
+    const updateItems = ProductData.filter(product=>{
+      return product.cate === categItem
+    })
+    categItem !=="All" ? setItems(updateItems) : setItems(ProductData)
+   
+  };
   return (
     <div className="course-section style-3 padding-tb">
-        {/* shapes */}
+      {/* shapes */}
       <div className="course-shape one">
         <img src="/src/assets/images/shape-img/icon/01.png" alt="" />
       </div>
@@ -95,21 +101,55 @@ const CategoryShowCase = () => {
       <div className="container">
         {/* section header */}
         <div className="section-header">
-            <h2 className="title">{title}</h2>
+          <h2 className="title">{title}</h2>
 
-            <div className="course-filter-group">
-                <ul className="lab-ul">
-                    <li onClick={()=>filterItem("All")}>All</li>
-                    <li onClick={()=>filterItem("Shoes")}>Shoes</li>
-
-                    <li onClick={()=>filterItem("Bags")}>Bags</li>
-
-                    <li onClick={()=>filterItem("Phones")}>Phones</li>
-
-                    <li onClick={()=>filterItem("Beauty")}>Beauty</li>
-
-                </ul>
-            </div>
+          <div className="course-filter-group">
+            <ul className="lab-ul">
+              <li onClick={() => filterItem("All")}>All</li>
+              <li onClick={() => filterItem("Shoes")}>Shoes</li>
+              <li onClick={() => filterItem("Bags")}>Bags</li>
+              <li onClick={() => filterItem("Phones")}>Phones</li>
+              <li onClick={() => filterItem("Beauty")}>Beauty</li>
+            </ul>
+          </div>
+        </div>
+        {/* section body */}
+        <div className="section-wrapper">
+          <div className=" row g-4 justify-center row-cols-xl-4 row-cols-lg-3 row-cols-md-2 row-cols-1 course-filter">
+            {items.map((item) => (
+              <div key={item.id} className="col">
+                <div className="course-item style-4">
+                  <div className="course-inner">
+                    <div className="course-thumb">
+                      <img src={item.imgUrl} alt="" />
+                      <div className="course-category">
+                        <div className="course-cate">
+                          <a href="">{item.cate}</a>
+                        </div>
+                        <div className="course-review">
+                          <Ratting />
+                        </div>
+                      </div>
+                    </div>
+                    {/* content */}
+                    <div className="course-content">
+                      <Link to={`/shop/${item.id}`}>
+                        <h6>{item.title}</h6>
+                      </Link>
+                      <div className="course-footer">
+                        <div className="course-author">
+                          <Link to="/" className="ca-name">
+                            {item.brand}
+                          </Link>
+                        </div>
+                        <div className="course-price">{item.price}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
