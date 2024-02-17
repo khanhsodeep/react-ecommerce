@@ -86,7 +86,6 @@ const CategoryShowCase = () => {
       return product.cate === categItem
     })
     categItem !=="All" ? setItems(updateItems) : setItems(ProductData)
-   
   };
   return (
     <div className="course-section style-3 padding-tb">
