@@ -19,6 +19,7 @@ const Home = () => {
       <AboutUs/>
       <AppSection/>
       <Sponsor/>
+     
     </div>
   );
 };
